@@ -8,10 +8,15 @@ body {
 
 h1 {
     margin: 0rem;
+    font-size: xx-large;
     font-weight: bolder;
     font-style: italic;
+    color: #0176F2;
 }
 
 h2 {
     margin: 0rem;
+}
+
+#basic {
 }
