@@ -8,7 +8,7 @@ d3.json("fathers-processed.json", function (d) {
   }).then(function (fathersData) {
     console.log(fathersData);
 
-    var margin = {top: 10, right: 30, bottom: 30, left: 60},
+    var margin = {top: 10, right: 50, bottom: 30, left: 60},
         width = 750 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
@@ -66,13 +66,7 @@ d3.json("fathers-processed.json", function (d) {
         .domain(fathersData.map(function(d) { return d.name; }))
         .padding(1);
 
-    const yAxis = svg.append("g")
-        .attr("transform", `translate(${x(0)},0)`)
-        .style("stroke-dasharray", 5.5)
-        .call(d3.axisLeft(y));
-
-        yAxis.selectAll("text").remove();
-        yAxis.selectAll("line").remove();
+    
 
 
         var tooltip = d3.select("#fathers-graph")
@@ -110,7 +104,63 @@ d3.json("fathers-processed.json", function (d) {
           }
 
 
-          svg.selectAll("mycircle")
+          
+    
+
+    /*/ Lines
+    svg.selectAll("myline")
+    .data(fathersData)
+    .enter()
+    .append("line")
+        .attr("x1", function(d) { return x(Math.max(...scoresMap.get(d.name)));  } )
+        .attr("x2", function(d) { return x(Math.min(...scoresMap.get(d.name))); } )
+        .attr("y1", function(d) { return y(d.name); })
+        .attr("y2", function(d) { return y(d.name); })
+        .attr("stroke", "grey")
+        .attr("stroke-width", "1px")*/
+
+    /* const node = svg.append("g")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", 10)
+      .selectAll("g")
+      .data(fathersData)
+      .join("line")
+        .attr("x1", function(d) { return x(Math.max(...scoresMap.get(d.name)));  } )
+        .attr("x2", function(d) { return x(Math.min(...scoresMap.get(d.name))); } )
+        .attr("y1", function(d) { return y(d.name); })
+        .attr("y2", function(d) { return y(d.name); })
+        .attr("stroke", "grey")
+        .attr("stroke-width", "1px")
+      .append("text")
+        .attr("dy", "0.31em")
+        .attr("x", d => x(Math.max(...scoresMap.get(d.name))))
+        .attr("y", d => y(d.name))
+        .text(d => d.name)*/
+
+
+        svg.append("g")
+      .attr("stroke", "#ccc")
+      .attr("stroke-width", 2)
+        .selectAll("line")
+        .data(fathersData)
+        .join("line")
+        .attr("x1", d => x(Math.min(...scoresMap.get(d.name))))
+        .attr("x2", d => x(Math.max(...scoresMap.get(d.name))))
+        .attr("y1", (d, i) => y(d.name))
+        .attr("y2", (d, i) => y(d.name))
+        
+        svg.append("g")
+        .selectAll("text")
+        .data(fathersData)
+        .join("text")
+          .text(d => d.name)
+            .attr("dx", d => x(Math.max(...scoresMap.get(d.name))) + 15)
+            .attr("dy", (d, i) => y(d.name) + 5)
+            .style('fill', 'black')
+
+
+
+        svg.selectAll("mycircle")
         .data(fathersData)
         .enter()
         .append("circle")
@@ -135,19 +185,37 @@ d3.json("fathers-processed.json", function (d) {
         .on("mouseover", mouseover )
         .on("mousemove", mousemove )
         .on("mouseleave", mouseleave )
-    
 
-    // Lines
-    svg.selectAll("myline")
-    .data(fathersData)
-    .enter()
-    .append("line")
-        .attr("x1", function(d) { return x(Math.max(...scoresMap.get(d.name)));  } )
+        var test = svg.selectAll("g")
+          .data(fathersData)
+          .attr('position', 'absolute')
+          .append("g")
+
+          console.log(test)
+
+
+        /* test.append("line")
+        .attr("x1", function(d) { console.log(d) 
+            console.log(Math.max(...scoresMap.get(d.name)));
+            return x(Math.max(...scoresMap.get(d.name)));  } )
         .attr("x2", function(d) { return x(Math.min(...scoresMap.get(d.name))); } )
         .attr("y1", function(d) { return y(d.name); })
         .attr("y2", function(d) { return y(d.name); })
         .attr("stroke", "grey")
         .attr("stroke-width", "1px")
 
+    test.append('text')
+    .attr("dy", "0.31em")
+    .attr("x", d => x(Math.max(...scoresMap.get(d.name))))
+    .attr("y", d => y(d.name))
+    .text(d => d.name) */
 
+
+    const yAxis = svg.append("g")
+        .attr("transform", `translate(${x(0)},0)`)
+        .style("stroke-dasharray", 5.5)
+        .call(d3.axisLeft(y));
+
+        yAxis.selectAll("text").remove();
+        yAxis.selectAll("line").remove();
   });
