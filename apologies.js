@@ -78,8 +78,8 @@ d3.csv("data/apologies/ApologiesData-Processed.csv", function (d) {
 NEW
 */
 
-var width = 954;
-var radius = width / 4;
+var width = 500;
+var radius = width / 2;
 
 
 function hierarchy(data, delimiter = ".") {
@@ -142,7 +142,6 @@ line = d3.lineRadial()
 
   const svg = d3.select('#apologies-graph').append('svg')
     .attr("viewBox", [-width / 2, -width / 2, width, width]);
-      // .attr("viewBox", [-width / 2, -width / 2, width, width]);
 
   const node = svg.append("g")
       .attr("font-family", "sans-serif")
@@ -152,7 +151,7 @@ line = d3.lineRadial()
     .join("g")
       .attr("transform", d => `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0)`)
     .append("text")
-      .attr("dy", "0.5rem")
+      .attr("dy", "0.31em")
       .attr("x", d => d.x < Math.PI ? 6 : -6)
       .attr("text-anchor", d => d.x < Math.PI ? "start" : "end")
       .attr("transform", d => d.x >= Math.PI ? "rotate(180)" : null)

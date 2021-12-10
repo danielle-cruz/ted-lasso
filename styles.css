@@ -18,5 +18,22 @@ h2 {
     margin: 0rem;
 }
 
-#basic {
+#apologies-visualization {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+
+#apologies-visualization > div {
+    flex: 1;
+    margin: 1rem;
+}
+#apologies-graph {
+    flex: 1;
+}
+
+#apologies-excerpts {
+    width: 50%;
+    flex: 1;
 }
