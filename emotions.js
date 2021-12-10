@@ -250,6 +250,13 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
     .on("mouseover", mouseover)
     .on("mousemove", mousemove)
     .on("mouseout", mouseout);
+  
+  // Handmade legend
+  svg.append("circle").attr("cx",50).attr("cy",0).attr("r", 6).style("fill", "#69b3a2")
+  svg.append("circle").attr("cx",50).attr("cy",20).attr("r", 6).style("fill", "#404080")
+  svg.append("text").attr("x", 70).attr("y", 0).text("variable A").style("font-size", "15px").attr("alignment-baseline","middle")
+  svg.append("text").attr("x", 70).attr("y", 20).text("variable B").style("font-size", "15px").attr("alignment-baseline","middle")
+
 
   // What happens when the mouse move -> show the annotations at the right positions.
   function mouseover() {

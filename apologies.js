@@ -11,17 +11,6 @@ d3.csv("data/apologies/ApologiesData-Processed.csv", function (d) {
     text: d.Text,
   };
 }).then(function (apologiesData) {
-  console.log(apologiesData);
-
-  /* var margin = {
-      top: 20,
-      right: 80,
-      bottom: 50,
-      left: 50,
-    },
-  width = 900 - margin.left - margin.right,
-  height = 500 - margin.top - margin.bottom;
-  radius = width / 2 */
 
   var waypoint = new Waypoint({
     element: document.querySelector('#apologies-section'),
@@ -30,23 +19,16 @@ d3.csv("data/apologies/ApologiesData-Processed.csv", function (d) {
     }
   })
 
-  console.log('WOW JUST PRINTED SOMETHING')
-  var str = "hi";
-  console.log(`test: ${str}`)
-
-
   function getDirectionalData() {
       const directionalDataMap = new Map();
       for (const apology of apologiesData) {
           if (directionalDataMap.has(apology.to)) {
               var value = directionalDataMap.get(apology.to);
-              console.log(value)
               var imports = value.imports;
               imports.push(apology.from);
               value.imports = imports;
               directionalDataMap.set(apology.to, value);
           } else {
-            console.log(apology.to)
               var value = {
                   "name": apology.to,
                   "size": 1,
@@ -56,7 +38,6 @@ d3.csv("data/apologies/ApologiesData-Processed.csv", function (d) {
           }
 
           if(!directionalDataMap.has(apology.from)) {
-            console.log(apology.from)
               var value = {
                   "name": apology.from,
                   "size": 1,
@@ -66,18 +47,10 @@ d3.csv("data/apologies/ApologiesData-Processed.csv", function (d) {
           }
 
       }
-      console.log(directionalDataMap)
       return Array.from(directionalDataMap.values());
   }
 
-  var hierarchicalData = getDirectionalData();
-  console.log(hierarchicalData)
-
-
-/*
-NEW
-*/
-
+var hierarchicalData = getDirectionalData();
 var width = 500;
 var radius = width / 2;
 
@@ -108,8 +81,6 @@ function hierarchy(data, delimiter = ".") {
 
 function bilink(root) {
   const map = new Map(root.leaves().map(d => [id(d), d]));
-  console.log(map)
-  console.log(root.leaves())
   for (const d of root.leaves()) {
     d.incoming = [], d.outgoing = d.data.imports.map(i => [d, map.get(i)])};
   for (const d of root.leaves()) for (const o of d.outgoing) o[1].incoming.push(o);
@@ -131,12 +102,6 @@ line = d3.lineRadial()
 
 
   const data = hierarchy(hierarchicalData);
-  console.log(data)
-  // const test = d3.hierarchy(hierarchicalData);
-  // console.log(test)
-
-
-
   const root = tree(bilink(d3.hierarchy(data)
       .sort((a, b) => d3.ascending(a.height, b.height) || d3.ascending(a.data.name, b.data.name))));
 
