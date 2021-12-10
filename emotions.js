@@ -1,5 +1,3 @@
-console.log(COLORS)
-
 d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
   return {
     ep: d.ep,
@@ -15,9 +13,9 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
 
   var margin = {
       top: 20,
-      right: 80,
-      bottom: 50,
-      left: 50,
+      right: 50,
+      bottom: 100,
+      left: 60,
     },
     width = 900 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -33,7 +31,7 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
 
   // Add X axis --> it is a date format
   var x = d3
-    .scaleBand()
+    .scalePoint()
     .domain(emotionsData.map((d) => d.ep))
     .range([0, width])
     .round(true);
@@ -45,10 +43,27 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
     .selectAll("text")
     .attr("transform", "translate(-10,10)rotate(-45)")
     .style("text-anchor", "end");
+  
+  // text label for the x axis
+  svg.append("text")             
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (height + margin.top + 50) + ")")
+      .style("text-anchor", "middle")
+      .text("Episode");
 
   // Add Y axis
   var y = d3.scaleLinear().domain([0, 0.8]).range([height, 0]);
   svg.append("g").call(d3.axisLeft(y));
+
+  // text label for the y axis
+  svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Percent of Emotion Detected");  
 
 
   svg
@@ -62,7 +77,7 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
       d3
         .line()
         .x(function (d) {
-          return x(d.ep) + 10;
+          return x(d.ep);
         })
         .y(function (d) {
           return y(d.joy);
@@ -79,7 +94,7 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
       d3
         .line()
         .x(function (d) {
-          return x(d.ep) + 10;
+          return x(d.ep);
         })
         .y(function (d) {
           return y(d.sadness);
@@ -97,7 +112,7 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
       d3
         .line()
         .x(function (d) {
-          return x(d.ep) + 10;
+          return x(d.ep);
         })
         .y(function (d) {
           return y(d.fear);
@@ -114,7 +129,7 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
       d3
         .line()
         .x(function (d) {
-          return x(d.ep) + 10;
+          return x(d.ep);
         })
         .y(function (d) {
           return y(d.disgust);
@@ -131,7 +146,7 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
       d3
         .line()
         .x(function (d) {
-          return x(d.ep) + 10;
+          return x(d.ep);
         })
         .y(function (d) {
           return y(d.anger);
@@ -276,29 +291,29 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
     var interval = x.step();
     var index = Math.round(d3.pointer(event)[0] / interval);
     d = emotionsData[index];
-    vertical.attr("x", x(d.ep) + 10);
+    vertical.attr("x", x(d.ep));
 
-    joyFocus.attr("cx", x(d.ep) + 10).attr("cy", y(d.joy));
+    joyFocus.attr("cx", x(d.ep)).attr("cy", y(d.joy));
     joyText
       .html("joy: " + d.joy)
-      .attr("x", x(d.ep) + 25)
+      .attr("x", x(d.ep) + 15)
       .attr("y", y(d.joy));
-    sadFocus.attr("cx", x(d.ep) + 10).attr("cy", y(d.sadness));
+    sadFocus.attr("cx", x(d.ep)).attr("cy", y(d.sadness));
     sadText
       .html("sadness: " + d.sadness)
-      .attr("x", x(d.ep) + 25)
+      .attr("x", x(d.ep) + 15)
       .attr("y", y(d.sadness));
-    fearFocus.attr("cx", x(d.ep) + 10).attr("cy", y(d.fear));
+    fearFocus.attr("cx", x(d.ep)).attr("cy", y(d.fear));
     fearText
       .html("fear: " + d.fear)
-      .attr("x", x(d.ep) + 25)
+      .attr("x", x(d.ep) + 15)
       .attr("y", y(d.fear));
-    disgustFocus.attr("cx", x(d.ep) + 10).attr("cy", y(d.disgust));
+    disgustFocus.attr("cx", x(d.ep)).attr("cy", y(d.disgust));
     disgustText
         .html("disgust: " + d.disgust)
-        .attr("x", x(d.ep) + 25)
+        .attr("x", x(d.ep) + 15)
         .attr("y", y(d.disgust));
-    angerFocus.attr("cx", x(d.ep) + 10).attr("cy", y(d.anger));
+    angerFocus.attr("cx", x(d.ep)).attr("cy", y(d.anger));
     angerText
       .html("anger: " + d.anger)
       .attr("x", x(d.ep) + 25)

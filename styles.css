@@ -37,3 +37,20 @@ h2 {
     width: 50%;
     flex: 1;
 }
+
+#excerpts-section {
+    height: 20%;
+    overflow: scroll;
+}
+
+.excerpt {
+    border: 1px solid blue;
+}
+
+#fathers-graph {
+    position: relative;
+}
+
+.tooltip {
+    position: absolute;
+}

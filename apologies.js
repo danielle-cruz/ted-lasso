@@ -19,6 +19,46 @@ d3.csv("data/apologies/ApologiesData-Processed.csv", function (d) {
     }
   })
 
+  function getExcerptData() {
+    const excerptsData = new Map();
+    for (const apology of apologiesData) {
+      if (excerptsData.has(apology.to)) {
+        var value = excerptsData.get(apology.to);
+        value.push({
+          "otherName": apology.from,
+          "type": "to",
+          "text": apology.text
+        });
+      } else {
+        var value = {
+          "otherName": apology.from,
+          "type": "from",
+          "text": apology.text
+      }
+        excerptsData.set(apology.to, [value]); 
+      }
+
+      if (excerptsData.has(apology.from)) {
+        var value = excerptsData.get(apology.from);
+        value.push({
+          "otherName": apology.to,
+          "type": "from",
+          "text": apology.text
+        });
+        excerptsData.set(apology.from, value);
+      } else {
+        var value = {
+          "otherName": apology.to,
+          "type": "to",
+          "text": apology.text
+      }
+        excerptsData.set(apology.from, [value]); 
+      }
+
+    }
+    return excerptsData;
+  }
+
   function getDirectionalData() {
       const directionalDataMap = new Map();
       for (const apology of apologiesData) {
@@ -158,8 +198,29 @@ apologies received: ${d.outgoing.length}`));
     d3.selectAll(d.outgoing.map(([, d]) => d.text)).attr("fill", null).attr("font-weight", null);
   }
 
+
+  var excerptsData = getExcerptData();
+  console.log(excerptsData)
   function clicked(event, d) {
     console.log(d)
+    var excerpts = excerptsData.get(`group.${d.data.name}`);
+    var excerptsSection = document.querySelector('#excerpts-section');
+    
+    while (excerptsSection.firstChild) {
+      excerptsSection.removeChild(excerptsSection.firstChild);
+    }
+
+    let excerptsSectionTitle = document.querySelector('#excerpts-section-title');
+    excerptsSectionTitle.textContent = `Apology Excerpts: ${d.data.name}`
+
+    for (var excerpt of excerpts) {
+      let excerptElem = document.createElement('div');
+      let excerptText = document.createElement('p');
+      excerptText.textContent = excerpt.text;
+      excerptElem.appendChild(excerptText);
+      excerptElem.classList.add('excerpt')
+      excerptsSection.appendChild(excerptElem);
+    }
   }
 
   
