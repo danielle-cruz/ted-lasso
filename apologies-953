@@ -13,7 +13,7 @@ d3.csv("data/apologies/ApologiesData-Processed.csv", function (d) {
 }).then(function (apologiesData) {
   console.log(apologiesData);
 
-  /* var margin = {
+  var margin = {
       top: 20,
       right: 80,
       bottom: 50,
@@ -21,7 +21,7 @@ d3.csv("data/apologies/ApologiesData-Processed.csv", function (d) {
     },
   width = 900 - margin.left - margin.right,
   height = 500 - margin.top - margin.bottom;
-  radius = width / 2 */
+  radius = width / 2
 
   var waypoint = new Waypoint({
     element: document.querySelector('#apologies-section'),
@@ -79,7 +79,7 @@ NEW
 */
 
 var width = 954;
-var radius = width / 4;
+var radius = width / 2;
 
 
 function hierarchy(data, delimiter = ".") {
@@ -109,9 +109,7 @@ function hierarchy(data, delimiter = ".") {
 function bilink(root) {
   const map = new Map(root.leaves().map(d => [id(d), d]));
   console.log(map)
-  console.log(root.leaves())
-  for (const d of root.leaves()) {
-    d.incoming = [], d.outgoing = d.data.imports.map(i => [d, map.get(i)])};
+  for (const d of root.leaves()) d.incoming = [], d.outgoing = d.data.imports.map(i => [d, map.get(i)]);
   for (const d of root.leaves()) for (const o of d.outgoing) o[1].incoming.push(o);
   return root;
 }
@@ -121,7 +119,7 @@ function id(node) {
 }
 
 line = d3.lineRadial()
-    .curve(d3.curveBundle.beta(0.25))
+    .curve(d3.curveBundle.beta(0.85))
     .radius(d => d.y)
     .angle(d => d.x)
 
@@ -137,12 +135,11 @@ line = d3.lineRadial()
 
 
 
-  const root = tree(bilink(d3.hierarchy(data)
+  const root = tree(bilink(d3.hierarchy(hierarchicalData)
       .sort((a, b) => d3.ascending(a.height, b.height) || d3.ascending(a.data.name, b.data.name))));
 
   const svg = d3.select('#apologies-graph').append('svg')
-    .attr("viewBox", [-width / 2, -width / 2, width, width]);
-      // .attr("viewBox", [-width / 2, -width / 2, width, width]);
+      .attr("viewBox", [-width / 2, -width / 2, width, width]);
 
   const node = svg.append("g")
       .attr("font-family", "sans-serif")
@@ -152,22 +149,20 @@ line = d3.lineRadial()
     .join("g")
       .attr("transform", d => `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0)`)
     .append("text")
-      .attr("dy", "0.5rem")
+      .attr("dy", "0.31em")
       .attr("x", d => d.x < Math.PI ? 6 : -6)
       .attr("text-anchor", d => d.x < Math.PI ? "start" : "end")
       .attr("transform", d => d.x >= Math.PI ? "rotate(180)" : null)
       .text(d => d.data.name)
       .each(function(d) { d.text = this; })
-      .on("click", clicked)
       .on("mouseover", overed)
       .on("mouseout", outed)
-      .call(text => text.append("title").text(d => `${id(d).substring(6)}
-apologies given: ${d.incoming.length}
-apologies received: ${d.outgoing.length}`));
+      .call(text => text.append("title").text(d => `${id(d)}
+${d.outgoing.length} outgoing
+${d.incoming.length} incoming`));
 
   const link = svg.append("g")
-      .attr("stroke", COLOR_NONE)
-      .attr("stroke-width", 3)
+      .attr("stroke", colornone)
       .attr("fill", "none")
     .selectAll("path")
     .data(root.leaves().flatMap(leaf => leaf.outgoing))
@@ -179,10 +174,10 @@ apologies received: ${d.outgoing.length}`));
   function overed(event, d) {
     link.style("mix-blend-mode", null);
     d3.select(this).attr("font-weight", "bold");
-    d3.selectAll(d.incoming.map(d => d.path)).attr("stroke", COLOR_IN).raise();
-    d3.selectAll(d.incoming.map(([d]) => d.text)).attr("fill", COLOR_IN).attr("font-weight", "bold");
-    d3.selectAll(d.outgoing.map(d => d.path)).attr("stroke", COLOR_OUT).raise();
-    d3.selectAll(d.outgoing.map(([, d]) => d.text)).attr("fill", COLOR_OUT).attr("font-weight", "bold");
+    d3.selectAll(d.incoming.map(d => d.path)).attr("stroke", colorin).raise();
+    d3.selectAll(d.incoming.map(([d]) => d.text)).attr("fill", colorin).attr("font-weight", "bold");
+    d3.selectAll(d.outgoing.map(d => d.path)).attr("stroke", colorout).raise();
+    d3.selectAll(d.outgoing.map(([, d]) => d.text)).attr("fill", colorout).attr("font-weight", "bold");
   }
 
   function outed(event, d) {
@@ -192,10 +187,6 @@ apologies received: ${d.outgoing.length}`));
     d3.selectAll(d.incoming.map(([d]) => d.text)).attr("fill", null).attr("font-weight", null);
     d3.selectAll(d.outgoing.map(d => d.path)).attr("stroke", null);
     d3.selectAll(d.outgoing.map(([, d]) => d.text)).attr("fill", null).attr("font-weight", null);
-  }
-
-  function clicked(event, d) {
-    console.log(d)
   }
 
   

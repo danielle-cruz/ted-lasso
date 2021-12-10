@@ -1,0 +1,214 @@
+d3.csv("data/apologies/ApologiesData.csv", function (d) {
+  return {
+    id: d.Id,
+    ep: d.Episode,
+    from: d.Apologizer,
+    to: d.Apologee,
+    from_gender: d.Apologizer_Gender,
+    to_gender: d.Apologee_Gender,
+    power: d.More_Power,
+    response: d.Response,
+    text: d.Text,
+  };
+}).then(function (apologiesData) {
+  console.log(apologiesData);
+
+  var margin = 100,
+  width = 2000 - margin * 2,
+  height = 2000 - margin * 2;
+  radius = width / 2
+
+  var diameter = 750;
+var radius = diameter / 2;
+const PADDING_LABEL = 30 // distance between edge end and engineer name
+
+
+  var waypoint = new Waypoint({
+    element: document.querySelector('#apologies-section'),
+    handler: function(direction) {
+      console.log('Scrolled to waypoint!')
+    }
+  })
+
+  console.log('WOW JUST PRINTED SOMETHING')
+
+
+
+  function getDirectionalData() {
+      const directionalDataMap = new Map();
+      for (const d of apologiesData) {
+          if (directionalDataMap.has(d.to)) {
+              var value = directionalDataMap.get(d.to);
+              var imports = value.imports;
+              imports.push(d.from);
+              value.imports = imports;
+              directionalDataMap.set(d.to, value);
+          } else {
+              var value = {
+                  "name": d.to,
+                  "size": 1,
+                  "imports": [d.from]
+              }
+              directionalDataMap.set(d.to, value); 
+          }
+
+          if(!directionalDataMap.has(d.from)) {
+              var value = {
+                  "name": d.from,
+                  "size": 1,
+                  "imports": []
+              }
+              directionalDataMap.set(d.from, value); 
+          }
+
+      }
+      return Array.from(directionalDataMap.values());
+  }
+
+  function getNodes() {
+    const nodes = new Array();
+    for (const d of apologiesData) {
+      if (!nodes.some(character => character.name === d.from)) nodes.push({"name": d.from });
+      if (!nodes.some(character => character.name === d.to)) nodes.push({"name": d.to});
+    }
+    console.log(nodes)
+    return nodes;
+  }
+
+  function getLinks() {
+    const links = new Array();
+    for (const d of apologiesData) {
+      if (links.some(link => link.source === d.from && link.target === d.to)) {
+        var existing = links.find(link => link.source === d.from && link.target === d.to);
+        existing.count += 1;
+      } else {
+        links.push({"source": d.from, "target": d.to, "count": 1})
+      }
+    }
+    console.log(links);
+    return links;
+
+  }
+
+  // Calculates node locations
+function circleLayout(nodes) {
+
+  // use to scale node index to theta value
+  var scale = d3.scaleLinear()
+      .domain([0, nodes.length])
+      .range([0, 2 * Math.PI]);
+
+  // calculate theta for each node
+  nodes.forEach(function(d, i) {
+      // calculate polar coordinates
+      var theta  = scale(i);
+      var radial = radius / 1.5;
+
+      // convert to cartesian coordinates
+      d.x = radial * Math.sin(theta);
+      d.y = radial * Math.cos(theta);
+  });
+}
+
+// Draws nodes with tooltips
+function drawNodes(nodes) {
+  // used to assign nodes color by group
+  var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+
+  d3.select("#plot").selectAll(".node")
+      .data(nodes)
+      .enter()
+      .append("circle")
+      .attr("class", "node")
+      .attr("id", function(d, i) { return d.name; })
+      .attr("cx", function(d, i) { return d.x; })
+      .attr("cy", function(d, i) { return d.y; })
+      .attr("r", 10)
+      .style("fill",   function(d, i) { return color(d.group); })
+      // .on("mouseover", function(d, i) { addTooltip(d3.select(this)); })
+      // .on("mouseout",  function(d, i) { d3.select("#tooltip").remove(); });
+  
+  d3.select("#plot").selectAll(".label")
+      .data(nodes)
+      .enter()
+      .append("text")
+      .attr("class", "label")
+      .attr("x", function(d){return d.x - 20}) 
+      .attr("y", function(d){return d.y})     
+      .attr("transform", function (d) { 
+        var xOffset = d.x < 0 ? d.x / 3 : d.x / 4;
+        return "translate(" + xOffset + "," + (d.y/5) + ")";
+      })
+      .text(function (d) { return d.name; });
+      // .on("mouseover", function(d, i) { addTooltip(d3.select(this)); })
+      // .on("mouseout",  function(d, i) { d3.select("#tooltip").remove(); });
+}
+
+// Draws straight edges between nodes
+function drawLinks(nodes, links) {
+
+  /* d3.select("#plot").selectAll(".link")
+      .data(links)
+      .enter()
+      .append("line")
+      .style("stroke", "black")
+      .attr("class", "link")
+      .attr("x1", 0)
+      .attr("y1", 0)
+      .attr("x2", 500)
+      .attr("y2", 500); */
+
+  d3.select("#plot").selectAll(".link")
+      .data(links)
+      .enter()
+      .append("line")
+      .style("stroke", "black")
+      .attr("class", "link")
+      .attr("x1", function(d) { 
+        var sourceNode = nodes.find(character => character.name === d.source)
+        return sourceNode.x; 
+      })
+      .attr("y1", function(d) { 
+        var sourceNode = nodes.find(character => character.name === d.source)
+        return sourceNode.y; 
+      })
+      .attr("x2", function(d) {
+        var targetNode = nodes.find(character => character.name === d.target)
+        return targetNode.x; 
+      })
+      .attr("y2", function(d) { 
+        var targetNode = nodes.find(character => character.name === d.target)
+        return targetNode.y; 
+      });
+}
+
+  // Draws an arc diagram for the provided undirected graph
+function drawGraph(nodes, links) {
+  // create svg image
+  var svg  = d3.select("body").select("#apologies-graph")
+      .append("svg")
+      .attr("width", diameter)
+      .attr("height", diameter);
+
+  // create plot area within svg image
+  var plot = svg.append("g")
+      .attr("id", "plot")
+      .attr("transform", "translate(" + radius + ", " + radius + ")");
+  
+  // calculate node positions
+  circleLayout(nodes);
+
+  // draw edges first
+  drawLinks(nodes, links);
+  // drawCurves(graph.links);
+
+  // draw nodes last
+  drawNodes(nodes);
+}
+
+var nodes = getNodes();
+var links = getLinks();
+drawGraph(nodes, links);
+
+  });
