@@ -3,4 +3,6 @@ const COLORS = ["rgba(255, 196, 93, 255)", "rgba(4,191,196,255)", "rgba(200,123,
 
 const COLOR_IN = "rgba(4, 0, 240, 0.6)";
 const COLOR_OUT = "rgba(240, 0, 0, 0.6)";
+//const COLOR_IN = "rgba(4,191,196,0.8)"
+//const COLOR_OUT = "rgba(247,118,109,0.8)"
 const COLOR_NONE = "#ccc"

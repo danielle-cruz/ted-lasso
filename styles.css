@@ -129,7 +129,7 @@ h3 {
 }
 
 .explanation {
-  margin: 4rem 20rem;
+  margin: 4rem 18rem;
 }
 
 .tooltip {
@@ -186,4 +186,15 @@ h3 {
 .ptLabel {
     font-size: small;
     font-weight: lighter;
+}
+
+.red-color {
+    color: rgba(240, 0, 0, 1);
+    font-weight: bold;
+}
+
+.blue-color {
+    color: rgba(4, 0, 240, 1);
+    font-weight: bold;
+
 }

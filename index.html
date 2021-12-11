@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="images/icon-1.png">
     <script src="lib/noframework.waypoints.min.js"></script>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="constants.js"></script>
@@ -25,7 +26,7 @@
 
     <div id="introduction" class="explanation">
       <h2>Introduction</h2>
-      <h3>"Hey, how y'all doing? I'm Ted Lasso, your new coach."</h3>
+      <h3>"Hey, how y'all doing? I'm Ted Lasso, your new coach." <img src="images/characters/Ted.jpg" class="nameImage"> </h3>
       <p>Originally based on a <a href="https://www.youtube.com/watch?v=6KeG_i8CWE8">popular commercial</a> launched to promote English Premiere League matches in the United States, “Ted Lasso” (2020-) is a comedy series centered around an American football coach and title character Ted Lasso. Ted, a middle-aged, mustached, Midwestern man, is hired to manage a professional English soccer club called AFC Richmond  despite having no experience in the beloved sport. While on the surface, the show seems like a goofy series about a fish out of water as Ted navigates a whole new career and culture, “Ted Lasso” has gained critical acclaim in the depth of its writing, often blurring the lines between comedy and drama as it explores themes like relationships, grief, and trauma. </p>
       <p>In its freshman season, the show even shattered records for a comedy series, earning a whopping <a href="https://www.emmys.com/shows/ted-lasso">20 Emmy nominations</a> and going on to win 7 of them. Sports series have long been known to lose fan interest quickly — much more so when the sport is one that's not particularly favored in this country... So, how did Ted Lasso go from a one-time commercial to a fully developed comedy series? What exactly makes “Ted Lasso” so moving and so special? </p>
       <p>Here, I seek to explore these questions by revisiting and more closely dissecting the show's dialogue, revealing trends behind the plot journey and character development. To do so, I analyzed all <a href="="https://transcripts.foreverdreaming.org/viewforum.php?f=1095>22 episode transcripts</a> from the series' two seasons so far, mapping dialogue to more data-driven visualizations. I hope that in interacting with this project, fans can gain an even deeper appreciation behind the genius and the nuance behind the show’s writing.</p>
@@ -98,7 +99,7 @@
       </div>
       <div class="visualization-container">
         <h3>Network of every apology given by a main character</h3>
-        <p>In this edge bundling graph, we model every single apology given throughout seasons 1 and 2. Hover over each of the characters to view the apologies that they either received from someone (red) or gave to someone else (blue). Click on each character to view the specific apologies that they were involved in, extracted from episode dialogue.</p>
+        <p>In this edge bundling graph, we model every single apology given throughout seasons 1 and 2. Hover over each of the characters to view the apologies that they either received from someone (<span class="red-color">red</span>) or gave to someone else (<span class="blue-color">blue</span>) . Click on each character to view the specific apologies that they were involved in, extracted from episode dialogue.</p>
 
         <div id="apologies-visualization" class="visualization">
           <div id="apologies-graph" class="graph"></div>
@@ -130,7 +131,7 @@
 
       <div class="visualization-container">
         <h3>The sentiment of father-child relationships</h3>
-        <p>In this edge bundling graph, we model every single apology given throughout seasons 1 and 2. Hover over each of the characters to view the apologies that they either received from someone (red) or gave to someone else (blue). Click on each character to view the specific apologies that they were involved in, extracted from episode dialogue.</p>
+        <p>In this edge bundling graph, we model every single apology given throughout seasons 1 and 2. Hover over each of the characters to view the apologies that they either received from someone (<span class="red-color">red</span>) or gave to someone else (blue). Click on each character to view the specific apologies that they were involved in, extracted from episode dialogue.</p>
 
         <div id="fathers-visualization" class="visualization">
           <div id="fathers-graph" class="graph"></div>
@@ -139,6 +140,15 @@
             <div id="fathers-excerpts-section" class="excerpts-section"></div>
           </div>
         </div>
+      </div>
+
+      <div class="explanation">
+
+        <h3>Methodology</h3>
+        <p>Here, we define an apology as one that (1) is sincere, (2) is given by a main character for something that they genuinely did wrong (i.e. not just as a courtesy or filler word), and (3) drives plot and/or character development. </p>
+        <p>The opacity of edges between characters indicates the number of apologies between those two people, such that darker shades correlate to more apologies. </p>
+
+        <h3>Analysis</h3>
       </div>
     </div>
 
