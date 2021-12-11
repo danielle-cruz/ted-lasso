@@ -32,7 +32,7 @@ d3.csv("data/apologies/ApologiesData-Processed.csv", function (d) {
       } else {
         var value = {
           "otherName": apology.from,
-          "type": "from",
+          "type": "to",
           "text": apology.text
       }
         excerptsData.set(apology.to, [value]); 
@@ -49,7 +49,7 @@ d3.csv("data/apologies/ApologiesData-Processed.csv", function (d) {
       } else {
         var value = {
           "otherName": apology.to,
-          "type": "to",
+          "type": "from",
           "text": apology.text
       }
         excerptsData.set(apology.from, [value]); 
@@ -91,8 +91,8 @@ d3.csv("data/apologies/ApologiesData-Processed.csv", function (d) {
   }
 
 var hierarchicalData = getDirectionalData();
-var width = 500;
-var radius = width / 2;
+var width = 400;
+var radius = width / 1.80;
 
 
 function hierarchy(data, delimiter = ".") {
@@ -204,21 +204,43 @@ apologies received: ${d.outgoing.length}`));
   function clicked(event, d) {
     console.log(d)
     var excerpts = excerptsData.get(`group.${d.data.name}`);
-    var excerptsSection = document.querySelector('#excerpts-section');
+    var excerptsSection = document.querySelector('#apologies-excerpts-section');
     
     while (excerptsSection.firstChild) {
       excerptsSection.removeChild(excerptsSection.firstChild);
     }
 
-    let excerptsSectionTitle = document.querySelector('#excerpts-section-title');
+    let excerptsSectionTitle = document.querySelector('#apologies-excerpts-section-title');
     excerptsSectionTitle.textContent = `Apology Excerpts: ${d.data.name}`
+
+    let nameImage = document.createElement('img');
+    nameImage.setAttribute("src", `images/characters/${d.data.name}.jpg`)
+    nameImage.classList.add("nameImage");
+    excerptsSectionTitle.appendChild(nameImage);
+
 
     for (var excerpt of excerpts) {
       let excerptElem = document.createElement('div');
+
+      let excerptImage = document.createElement('img');
+      console.log(excerpt.type)
+      console.log(excerpt.otherName.substring(6));
+      excerptImage.setAttribute("src", excerpt.type === "from" ? `images/characters/${d.data.name}.jpg` : `images/characters/${excerpt.otherName.substring(6)}.jpg`)
+      excerptImage.classList.add("excerptImage");
+      excerptElem.appendChild(excerptImage);
+
+      let excerptTextContainer = document.createElement('div');
+
       let excerptText = document.createElement('p');
+      excerptText.classList.add('details');
       excerptText.textContent = excerpt.text;
-      excerptElem.appendChild(excerptText);
+      excerptTextContainer.appendChild(excerptText);
+      excerptElem.appendChild(excerptTextContainer);
+
+
       excerptElem.classList.add('excerpt')
+
+
       excerptsSection.appendChild(excerptElem);
     }
   }
