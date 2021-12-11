@@ -13,13 +13,6 @@ d3.csv("data/apologies/ApologiesData-Processed.csv", function (d) {
     text: d.Text,
   };
 }).then(function (apologiesData) {
-  var waypoint = new Waypoint({
-    element: document.querySelector("#apologies-section"),
-    handler: function (direction) {
-      console.log("Scrolled to waypoint!");
-    },
-  });
-
   function getExcerptData() {
     const excerptsData = new Map();
     for (const apology of apologiesData) {

@@ -1,4 +1,4 @@
-d3.json("fathers-processed.json", function (d) {
+d3.json("data/fathers/fathers-processed.json", function (d) {
   return {
     name: d.name,
     ep: d.ep,
@@ -6,7 +6,6 @@ d3.json("fathers-processed.json", function (d) {
     score: d.score,
   };
 }).then(function (fathersData) {
-  console.log(fathersData);
 
   var margin = { top: 30, right: 50, bottom: 70, left: 60 },
     width = 750 - margin.left - margin.right,
@@ -171,7 +170,6 @@ d3.json("fathers-processed.json", function (d) {
   yAxis.selectAll("line").remove();
 
   function updateFatherData(d) {
-    console.log(d);
     var excerptsSection = document.querySelector("#fathers-excerpts-section");
 
     while (excerptsSection.firstChild) {
