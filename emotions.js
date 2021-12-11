@@ -275,7 +275,7 @@ d3.csv("data/emotions/EmotionsData-Planned-Details.csv", function (d) {
 
   // Handmade legend
   var EMOTIONS = ["joy", "sadness", "fear", "disgust", "anger"];
-  var NUM_EMOTIONS = 5;
+  var NUM_EMOTIONS = EMOTIONS.length;
   var SIZE = 8;
   var XOFFSET_SQUARE = 50;
   var XOFFSET_TEXT = 70;
