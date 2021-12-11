@@ -181,10 +181,10 @@ d3.json("fathers-processed.json", function (d) {
         .attr("cy", function(d) { return y(d.name); })
         .attr("r", "6")
         .style("fill", "#543213")
-        .attr("id", function(d) { return d.text})
+        /*.attr("id", function(d) { return d.text})
         .on("mouseover", mouseover )
         .on("mousemove", mousemove )
-        .on("mouseleave", mouseleave )
+        .on("mouseleave", mouseleave )*/
 
         var test = svg.selectAll("g")
           .data(fathersData)
