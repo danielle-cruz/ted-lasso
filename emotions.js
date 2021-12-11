@@ -17,8 +17,8 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
       bottom: 100,
       left: 60,
     },
-    width = 900 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 750 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
   var svg = d3
@@ -70,8 +70,9 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
     .append("path")
     .datum(emotionsData)
     .attr("fill", "none")
-    .attr("stroke", COLORS[3])
-    .attr("stroke-width", 1.5)
+    .attr("stroke", COLORS[0])
+    .attr("stroke-width", 2)
+    .style("opacity", 0.75)
     .attr(
       "d",
       d3
@@ -87,8 +88,10 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
     .append("path")
     .datum(emotionsData)
     .attr("fill", "none")
-    .attr("stroke", COLORS[2])
-    .attr("stroke-width", 1.5)
+    .attr("stroke", COLORS[1])
+    .attr("stroke-width", 2)
+    .style("opacity", 0.75)
+
     .attr(
       "d",
       d3
@@ -105,8 +108,9 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
     .append("path")
     .datum(emotionsData)
     .attr("fill", "none")
-    .attr("stroke", COLORS[0])
-    .attr("stroke-width", 1.5)
+    .attr("stroke", COLORS[2])
+    .attr("stroke-width", 2)
+    .style("opacity", 0.75)
     .attr(
       "d",
       d3
@@ -122,8 +126,9 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
     .append("path")
     .datum(emotionsData)
     .attr("fill", "none")
-    .attr("stroke", "green")
-    .attr("stroke-width", 1.5)
+    .attr("stroke", COLORS[3])
+    .attr("stroke-width", 2)
+    .style("opacity", 0.75)
     .attr(
       "d",
       d3
@@ -140,7 +145,8 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
     .datum(emotionsData)
     .attr("fill", "none")
     .attr("stroke", COLORS[4])
-    .attr("stroke-width", 1.5)
+    .attr("stroke-width", 2)
+    .style("opacity", 0.75)
     .attr(
       "d",
       d3
@@ -157,9 +163,9 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
     .append("g")
     .append("rect")
     .attr("class", "mouse-line")
-    .style("stroke", "black")
+    .style("stroke", "grey")
     .style("opacity", "0")
-    .attr("width", 0.75)
+    .attr("width", 0.01)
     .attr("height", height);
 
   // Create the circle that travels along the curve of chart
@@ -167,7 +173,7 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
     .append("g")
     .append("circle")
     .style("fill", "none")
-    .attr("stroke", COLORS[3])
+    .attr("stroke", COLORS[0])
     .attr("r", 8.5)
     .style("opacity", 0);
 
@@ -178,14 +184,14 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
     .style("opacity", 0)
     .attr("text-anchor", "left")
     .attr("alignment-baseline", "middle")
-    .style("fill", COLORS[3]);
+    .style("fill", COLORS[0]);
 
   // Create the circle that travels along the curve of chart
   var sadFocus = svg
     .append("g")
     .append("circle")
     .style("fill", "none")
-    .attr("stroke", COLORS[2])
+    .attr("stroke", COLORS[1])
     .attr("r", 8.5)
     .style("opacity", 0);
 
@@ -196,7 +202,7 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
     .style("opacity", 0)
     .attr("text-anchor", "left")
     .attr("alignment-baseline", "middle")
-    .style("fill", COLORS[2]);
+    .style("fill", COLORS[1]);
 
   
   // Create the circle that travels along the curve of chart
@@ -204,7 +210,7 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
     .append("g")
     .append("circle")
     .style("fill", "none")
-    .attr("stroke", COLORS[0])
+    .attr("stroke", COLORS[2])
     .attr("r", 8.5)
     .style("opacity", 0);
 
@@ -215,14 +221,14 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
     .style("opacity", 0)
     .attr("text-anchor", "left")
     .attr("alignment-baseline", "middle")
-    .style("fill", COLORS[0]);
+    .style("fill", COLORS[2]);
 
   // Create the circle that travels along the curve of chart
   var disgustFocus = svg
     .append("g")
     .append("circle")
     .style("fill", "none")
-    .attr("stroke", "green")
+    .attr("stroke", COLORS[3])
     .attr("r", 8.5)
     .style("opacity", 0);
 
@@ -233,7 +239,7 @@ d3.csv("data/emotions/EmotionsData-Planned.csv", function (d) {
     .style("opacity", 0)
     .attr("text-anchor", "left")
     .attr("alignment-baseline", "middle")
-    .style("fill", "green");
+    .style("fill", COLORS[3]);
 
   // Create the circle that travels along the curve of chart
   var angerFocus = svg
