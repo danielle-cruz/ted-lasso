@@ -231,9 +231,7 @@ apologies received: ${d.outgoing.length}`
   }
 
   var excerptsData = getExcerptData();
-  console.log(excerptsData);
   function clicked(event, d) {
-    console.log(d);
     var excerpts = excerptsData.get(`group.${d.data.name}`);
     var excerptsSection = document.querySelector("#apologies-excerpts-section");
 
@@ -255,8 +253,6 @@ apologies received: ${d.outgoing.length}`
       let excerptElem = document.createElement("div");
 
       let excerptImage = document.createElement("img");
-      console.log(excerpt.type);
-      console.log(excerpt.otherName.substring(6));
       excerptImage.setAttribute(
         "src",
         excerpt.type === "from"

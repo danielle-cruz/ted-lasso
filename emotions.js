@@ -10,7 +10,6 @@ d3.csv("data/emotions/EmotionsData-Planned-Details.csv", function (d) {
     details: d.details,
   };
 }).then(function (emotionsData) {
-  console.log(emotionsData);
 
   var margin = {
       top: 20,
@@ -341,7 +340,6 @@ d3.csv("data/emotions/EmotionsData-Planned-Details.csv", function (d) {
   }
 
   function updateEpisodeData(d) {
-    console.log(d);
     var excerptsSection = document.querySelector("#episodes-excerpts-section");
 
     while (excerptsSection.firstChild) {
