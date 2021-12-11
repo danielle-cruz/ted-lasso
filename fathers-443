@@ -57,7 +57,10 @@ d3.json("fathers-processed.json", function (d) {
   // text label for the x axis
   svg
     .append("text")
-    .attr("transform", "translate(" + width / 2 + " ," + (height + 50) + ")")
+    .attr(
+      "transform",
+      "translate(" + width / 2 + " ," + (height + 50) + ")"
+    )
     .style("text-anchor", "middle")
     .text("Sentiment");
 
@@ -72,30 +75,34 @@ d3.json("fathers-processed.json", function (d) {
     )
     .padding(1);
 
-  // Y axis label:
-  svg
-    .append("text")
+// Y axis label:
+svg.append("text")
     .attr("text-anchor", "end")
     .attr("transform", "rotate(-90)")
     .attr("y", x(0) - 20)
     .attr("x", 30)
-    .text("Selected characters");
+    .text("Selected characters")
 
   // Y axis label:
-  /* svg.append("text")
+/* svg.append("text")
 .attr("text-anchor", "end")
 .attr("transform", "rotate(90)translate(150, -350)")
 .text("Selected characters");*/
 
   function mouseover(event, d) {
-    d3.select(this).style("fill", "rgba(1,117,233,0.7)");
-    d3.select(this).style("stroke", "rgba(1,117,233,255)");
+    if (d.score > 0) {
+      d3.select(this).style("fill", "rgba(125,174,0,0.7)");
+      d3.select(this).style("stroke", "rgba(125,174,0,255)");
 
-    svg
-      .append("text")
-      .attr("x", x(d.score))
-      .attr("y", y(d.name) - 15)
-      .attr("class", "ptLabel")
+    } else {
+      d3.select(this).style("fill", "rgba(247,118,109,0.7)");
+      d3.select(this).style("stroke", "rgba(247,118,109,255)");
+    }
+
+    svg.append('text')
+      .attr('x', x(d.score))
+      .attr('y', y(d.name) - 15)
+      .attr('class', 'ptLabel')
       .style("text-anchor", "middle")
       .text(`${d.ep}`);
 
@@ -120,7 +127,29 @@ d3.json("fathers-processed.json", function (d) {
     .join("text")
     .text((d) => d.name)
     .attr("dx", (d) => x(Math.max(...scoresMap.get(d.name))) + 15)
-    .attr("dy", (d, i) => y(d.name) + 5);
+    .attr("dy", (d, i) => y(d.name) + 5)
+
+  /* svg
+    .append("g")
+    .append("text")
+    .text("positive")
+    .attr("x", x(0) + 50)
+    .attr("y", 5)
+    .style("text-anchor", "start")
+    .style("fill", "rgba(125,174,0, 255)")
+
+
+  
+  svg
+    .append("g")
+    .append("text")
+    .text("negative")
+    .attr("x", x(0) - 50)
+    .attr("y", 5)
+    .style("text-anchor", "end")
+    .style("fill", "rgba(247, 118, 109, 255)")*/
+
+
 
   svg
     .selectAll("mycircle")
@@ -134,17 +163,22 @@ d3.json("fathers-processed.json", function (d) {
       return y(d.name);
     })
     .attr("r", "6")
-    .style("fill", "rgba(1,117,233,0.2)")
-    .style("stroke", "rgba(1,117,233,9.7)")
+    .style("fill", d => d.score > 0 ? "rgba(125,174,0,0.2)" : "rgba(247,118,109,0.2)")
+    .style("stroke", d => d.score > 0 ? "rgba(125,174,0,0.7)" : "rgba(247,118,109,0.7)")
     .attr("id", function (d) {
       return d.text;
     })
     .on("mouseover", mouseover)
-    .on("mouseout", function (event, d) {
-      d3.select(this).style("fill", "rgba(1,117,233,0.2)");
-      d3.select(this).style("stroke", "rgba(1,117,233,0.7)");
-      svg.selectAll(".ptLabel").remove();
-    });
+    .on("mouseout", function(event, d) {
+      if (d.score > 0) {
+        d3.select(this).style("fill", "rgba(125,174,0,0.2)");
+        d3.select(this).style("stroke", "rgba(125,174,0,0.7)");
+  
+      } else {
+        d3.select(this).style("fill", "rgba(247,118,109,0.2)");
+        d3.select(this).style("stroke", "rgba(247,118,109,0.7)");
+      }
+      svg.selectAll('.ptLabel').remove() })
 
   svg
     .selectAll("avgcircle")
@@ -194,33 +228,14 @@ d3.json("fathers-processed.json", function (d) {
     excerptsSection.appendChild(excerptText);
   }
 
+
   // Handmade legend
-  svg
-    .append("circle")
-    .attr("cx", 0)
-    .attr("cy", 0)
-    .attr("r", 6)
-    .style("fill", "rgba(1,117,233,0.2)")
-    .style("stroke", "rgba(1,117,233,0.7)");
-  svg
-    .append("circle")
-    .attr("cx", 0)
-    .attr("cy", 20)
-    .attr("r", 6)
-    .style("fill", "rgba(255, 196, 93, 255)")
-    .style("stroke", "rgba(242, 137, 51, 255)");
-  svg
-    .append("text")
-    .attr("x", 20)
-    .attr("y", 0)
-    .text("individual conversation sentiment")
-    .style("font-size", "15px")
-    .attr("alignment-baseline", "middle");
-  svg
-    .append("text")
-    .attr("x", 20)
-    .attr("y", 20)
-    .text("overall average sentiment")
-    .style("font-size", "15px")
-    .attr("alignment-baseline", "middle");
+svg.append("circle").attr("cx",0).attr("cy",0).attr("r", 6).style("fill", "rgba(125,174,0,0.2)").style("stroke", "rgba(125,174,0,0.7)" )
+svg.append("circle").attr("cx",0).attr("cy",20).attr("r", 6).style("fill", "rgba(247,118,109,0.2)").style("stroke", "rgba(247,118,109,0.7)")
+svg.append("circle").attr("cx",0).attr("cy",40).attr("r", 6).style("fill", "rgba(255, 196, 93, 255)").style("stroke", "rgba(242, 137, 51, 255)")
+svg.append("text").attr("x", 20).attr("y", 0).text("positive sentiment").style("font-size", "15px").style("fill", "rgba(125,174,0, 255)").attr("alignment-baseline","middle")
+svg.append("text").attr("x", 20).attr("y", 20).text("negative sentiment").style("font-size", "15px").style("fill", "rgba(247,118,109,255)").attr("alignment-baseline","middle")
+svg.append("text").attr("x", 20).attr("y", 40).text("overall average sentiment").style("font-size", "15px").style("fill", "rgba(242, 137, 51, 255)").attr("alignment-baseline","middle")
+
+
 });
