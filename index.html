@@ -42,12 +42,12 @@
         <p>However, not everyone is convinced by the rainbows and sunshine that Ted seemingly always has to offer. Critics point to Ted’s overbearing, perhaps unrealistic optimism as one-dimensional — how much can a show really offer if it only goes as deep as a few mushy and maudlin cliches like belief and hope?</p>
         <p>What, then, does the emotional breakdown of “Ted Lasso” dialogue actually look like?</p>
       </div>
-      <div class="visualization">
-        <h3 class="visualization-title">Emotional breakdown of dialogue throughout the series</h3>
-        <p class="visualization-subtitle">In this line chart, we present the emotions conveyed by the script for each episode in seasons 1 and 2.* Hover over each episode to see the specific anger, disgust, fear, joy, and sadness values and major plot points of that episode’s dialogue.</p>
-        <div id="emotions-visualization">
-          <div id="emotions-graph"></div>
-          <div id="emotions-excerpts">
+      <div class="visualization-container">
+        <h3>Emotional breakdown of dialogue throughout the series</h3>
+        <p>In this line chart, we present the emotions conveyed by the script for each episode in seasons 1 and 2.* Hover over each episode to see the specific anger, disgust, fear, joy, and sadness values and major plot points of that episode’s dialogue.</p>
+        <div id="emotions-visualization" class="visualization">
+          <div id="emotions-graph" class="graph"></div>
+          <div id="emotions-excerpts" class="graph-excerpts">
               <h4 id="episodes-excerpts-section-title">Episode detail</h4>
               <div id="episodes-excerpts-section" class="excerpts-section"></div>
           </div>
@@ -96,13 +96,13 @@
         
         <p>Note that here, we define an apology as one that (1) is sincere, (2) is given by a main character for something that they genuinely did wrong (i.e. not just as a courtesy or filler word), and (3) drives plot and/or character development.</p>
       </div>
-      <div class="visualization">
-        <h3 class="visualization-title">Network of every apology given by a main character</h3>
-        <p class="visualization-subtitle">In this edge bundling graph, we model every single apology given throughout seasons 1 and 2. Hover over each of the characters to view the apologies that they either received from someone (red) or gave to someone else (blue). Click on each character to view the specific apologies that they were involved in, extracted from episode dialogue.</p>
+      <div class="visualization-container">
+        <h3>Network of every apology given by a main character</h3>
+        <p>In this edge bundling graph, we model every single apology given throughout seasons 1 and 2. Hover over each of the characters to view the apologies that they either received from someone (red) or gave to someone else (blue). Click on each character to view the specific apologies that they were involved in, extracted from episode dialogue.</p>
 
-        <div id="apologies-visualization">
-          <div id="apologies-graph"></div>
-          <div id="apologies-excerpts">
+        <div id="apologies-visualization" class="visualization">
+          <div id="apologies-graph" class="graph"></div>
+          <div id="apologies-excerpts" class="graph-excerpts">
             <h4 id="apologies-excerpts-section-title">Apology Excerpts</h4>
             <div id="apologies-excerpts-section" class="excerpts-section"></div>
           </div>
@@ -116,38 +116,29 @@
         <p>The opacity of edges between characters indicates the number of apologies between those two people, such that darker shades correlate to more apologies. </p>
 
         <h3>Analysis</h3>
-        <p>Sadness
-          •	Sadness is closely aligned with joy for majority of S1
-          •	Surprisingly low during seemingly sad episodes like when they get relegated, surprisingly high during seemingly happy episodes like Christmas episode
-          •	Very low at beginning of S2
-          o	Hints of Ted being depressed underneath, toxic positivity
-          o	 Sadness surfaces as Ted faces panic attacks, confesses father’s suicide
-          
-          Disgust
-          •	Nate starts bullying Colin, Will
-          
-          Anger
-          •	Conflicts arise
-          o	Keeley / Roy
-          o	Roy / Jamie
-          o	Nate / everyone
-          o	Rebecca / Sam
-          
-          Fear
-          •	Nate betrays Ted
-          
-          More complex toward end of S2… signals uncertainty for S3
-        </p>
       </div>
       
     </div>
 
     <div id="fathers-section" class="text">
-      <h2>Fatherhood</h2>
 
-      <div id="fathers-visualization" class="visualization">
-        <div id="fathers-graph"></div>
-        <div id="fathers-excerpts"></div>
+      <div class="explanation">
+        <h2>Fatherhood</h2>
+        <h3>Father-child relationships and their lasting impacts</h3>
+        <p>text</p>
+      </div>
+
+      <div class="visualization-container">
+        <h3>The sentiment of father-child relationships</h3>
+        <p>In this edge bundling graph, we model every single apology given throughout seasons 1 and 2. Hover over each of the characters to view the apologies that they either received from someone (red) or gave to someone else (blue). Click on each character to view the specific apologies that they were involved in, extracted from episode dialogue.</p>
+
+        <div id="fathers-visualization" class="visualization">
+          <div id="fathers-graph" class="graph"></div>
+          <div id="fathers-excerpts" class="graph-excerpts">
+            <h4 id="fathers-excerpts-section-title">Dialogue excerpt</h4>
+            <div id="fathers-excerpts-section" class="excerpts-section"></div>
+          </div>
+        </div>
       </div>
     </div>
 
