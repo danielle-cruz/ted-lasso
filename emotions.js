@@ -14,7 +14,7 @@ d3.csv("data/emotions/EmotionsData-Planned-Details.csv", function (d) {
   var margin = {
       top: 20,
       right: 50,
-      bottom: 100,
+      bottom: 90,
       left: 60,
     },
     width = 750 - margin.left - margin.right,
@@ -24,8 +24,7 @@ d3.csv("data/emotions/EmotionsData-Planned-Details.csv", function (d) {
   var svg = d3
     .select("#emotions-graph")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("viewBox", [0, 0, width + margin.left + margin.right, height + margin.top + margin.bottom])
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
