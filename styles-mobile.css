@@ -1,0 +1,176 @@
+@media only screen and (max-width: 600px) {
+    h1 {
+        margin: 0rem;
+        font-size: 2.25em;
+        font-weight: bolder;
+        font-style: italic;
+    }
+    
+    h2 {
+        margin: 0rem;
+        text-transform: uppercase;
+        font-size: large;
+        font-weight: bolder;
+        font-style: italic;
+        color: rgba(2, 112, 241, 255);
+    }
+    
+    h3 {
+        font-size: medium;
+        font-weight: bold;
+    }
+    
+    h4 {
+        margin-top: 0rem;
+        font-size: small;
+    }
+    
+    p {
+        font-size: x-small;
+    }
+    
+    #title {
+        padding-top: 2rem;
+        animation-name: fadeIn;
+        animation-duration: 5s;
+    }
+    
+    #non-title-container {
+        margin: 1rem;
+    }
+    
+    
+    #title-container {
+        margin: -1rem;
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 80vw;
+        color: white;
+        background-color: rgba(2, 112, 241, 255);
+    }
+    
+    #title-container > h1,
+    h2,
+    h3 {
+        margin: 0rem;
+    }
+    
+    #title-container > h2 {
+        margin: 0rem;
+        font-weight: bold;
+        font-size: medium;
+        font-style: normal;
+        text-transform: none;
+        color: white;
+    }
+    
+    #title-container > h3 {
+        margin: 0rem;
+        font-size: small;
+        font-weight: normal;
+        font-style: normal;
+        text-transform: none;
+        color: white;
+    }
+    
+    #title-container > img {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        object-fit: contain;
+        height: 40vw;
+        margin: 1rem 0rem;
+    }
+    
+    
+    .explanation {
+        margin: 3rem 4rem;
+    }
+    
+    .scrollytelling {
+        margin: 3rem 1rem;
+        margin-top: -2rem;
+    }
+    
+    .visualization {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+    
+    .visualization > div {
+        flex: 1;
+        margin: 0.5rem;
+    }
+    
+    #emotions-excerpts {
+        width: 85%;
+        margin: 1rem;
+    }
+    
+    
+    .graph-excerpts {
+        width: 95%;
+        flex: 1;
+    }
+    
+    
+    .excerpts-section {
+        height: 20vh;
+        overflow: scroll;
+    }
+    
+    #episodes-excerpts-section {
+        height: 20vh;
+        overflow: scroll;
+    }
+    
+    .visualization-container {
+        margin: 1rem;
+        padding: 1rem;
+        border-radius: 0.5%;
+        box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .visualization-container > h3 {
+        margin: 0rem;
+        font-size: medium;
+        font-weight: bolder;
+    }
+    
+    .visualization-container > p {
+        font-size: x-small;
+    }
+    
+    .details {
+        margin: 0rem;
+        font-size: x-small;
+    }
+    
+    .footnote {
+        margin: 1rem 0rem 0rem 0rem;
+        color: grey;
+        font-size: xx-small;
+    }
+    
+    .nameImage {
+        display: inline;
+        margin-left: 0.5rem;
+        margin-bottom: -1rem;
+        height: 2rem;
+        width: 2rem;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    
+    .excerptImage {
+        margin-right: 1rem;
+        height: 2rem;
+        width: 2rem;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    
+}

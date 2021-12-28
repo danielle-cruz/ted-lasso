@@ -26,6 +26,10 @@ h3 {
   font-weight: bold;
 }
 
+h4 {
+  font-size: large;
+}
+
 p {
   font-size: large;
 }
@@ -48,10 +52,11 @@ a {
 #title-container {
   margin: -1rem;
   padding: 4rem 10rem;
-  height: 90vh;
-  width: 80vw;
   color: white;
   background-color: rgba(2, 112, 241, 255);
+  height: 110%;
+  width: 80vw;
+
 }
 
 #title-container > h1,
@@ -98,7 +103,7 @@ h3 {
 
 .visualization > div {
   flex: 1;
-  margin: 1rem;
+  margin: 0rem 1rem;
 }
 .graph {
   flex: 1;
@@ -107,6 +112,10 @@ h3 {
 .graph-excerpts {
   width: 50%;
   flex: 1;
+}
+
+.graph-excerpts > h4 {
+  margin-top: 0rem;
 }
 
 .excerpts-section {
@@ -161,7 +170,7 @@ h3 {
 
 .visualization-container {
   margin: 2rem;
-  padding: 3rem;
+  padding: 2.5rem;
   border-radius: 3%;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 }
@@ -173,7 +182,6 @@ h3 {
 }
 
 .visualization-container > p {
-  margin-top: 0rem;
   font-size: medium;
 }
 
