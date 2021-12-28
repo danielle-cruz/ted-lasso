@@ -54,7 +54,7 @@ a {
   padding: 4rem 10rem;
   color: white;
   background-color: rgba(2, 112, 241, 255);
-  height: 110%;
+  height: 100vh;
   width: 80vw;
 
 }
@@ -90,11 +90,6 @@ h3 {
   height: 60vh;
 }
 
-#episodes-excerpts-section {
-  height: 240px;
-  overflow: scroll;
-}
-
 .visualization {
   display: flex;
   flex-direction: row;
@@ -102,10 +97,13 @@ h3 {
 }
 
 .visualization > div {
-  flex: 1;
-  margin: 0rem 1rem;
+  margin: 1rem;
 }
 .graph {
+  flex: 2;
+}
+
+#apologies-graph {
   flex: 1;
 }
 
@@ -119,7 +117,7 @@ h3 {
 }
 
 .excerpts-section {
-  height: 400px;
+  height: 50vh;
   overflow: scroll;
 }
 
@@ -191,7 +189,7 @@ h3 {
 }
 
 .footnote {
-  margin: 0rem;
+  margin: 1rem 0rem 0rem 0rem;
   color: grey;
   font-size: small;
 }
